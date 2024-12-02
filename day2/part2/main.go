@@ -35,20 +35,22 @@ func isSafe(report []int, tolerance int) bool {
 
 		change := level - report[i+1]
 
+		// Track increasing/descreasing for validations later
 		if change > 0 {
 			changes[1] += 1
 		}
-
 		if change < 0 {
 			changes[-1] += 1
 		}
 
+		// Unsafe conditions
 		if change == 0 || (changes[1] > 0 && changes[-1] > 0) || math.Abs(float64(change)) > 3 {
 			safe = false
 			break
 		}
 	}
 
+	// Try to remove one level and perform the same check again
 	if tolerance > 0 && !safe {
 		for i := range report {
 			newReport := append([]int{}, report[:i]...)
