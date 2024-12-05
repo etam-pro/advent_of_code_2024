@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"math"
 
 	"github.com/etam-pro/advent_of_code_2024/utils"
 )
@@ -40,8 +39,11 @@ func main() {
 }
 
 func isValid(update []int, rules map[int][]int) bool {
+	// 1. Going through every page in the update
 	for i, page := range update {
+		// 2. check the pages before the current page to see if they are in the rules
 		for _, before := range update[:i] {
+			// 3. If they are, it is a violation and hence invalid
 			if _, ok := rules[page]; ok {
 				if utils.Contain(rules[page], before) {
 					return false
@@ -54,5 +56,5 @@ func isValid(update []int, rules map[int][]int) bool {
 }
 
 func getMiddle(update []int) int {
-	return int(math.Ceil(float64(len(update) / 2)))
+	return len(update) / 2
 }
