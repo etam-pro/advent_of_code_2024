@@ -58,35 +58,24 @@ func getMiddle(update []int) int {
 	return int(math.Ceil(float64(len(update) / 2)))
 }
 
-func contain(update []int, value int) bool {
-	for _, v := range update {
-		if v == value {
-
-			return true
-		}
-	}
-
-	return false
-}
-
 func fix(update []int, rules map[int][]int) []int {
 	newUpdate := make([]int, len(update))
 	copy(newUpdate, update)
 
 	for !isValid(newUpdate, rules) {
 		for page, pagerules := range rules {
-			if indexOf(newUpdate, page) == -1 {
+			if utils.IndexOf(newUpdate, page) == -1 {
 				continue
 			}
 
 			for _, rule := range pagerules {
-				if indexOf(newUpdate, rule) == -1 {
+				if utils.IndexOf(newUpdate, rule) == -1 {
 					continue
 				}
 
-				if indexOf(newUpdate, page) > indexOf(newUpdate, rule) {
-					pi := indexOf(newUpdate, page)
-					pri := indexOf(newUpdate, rule)
+				if utils.IndexOf(newUpdate, page) > utils.IndexOf(newUpdate, rule) {
+					pi := utils.IndexOf(newUpdate, page)
+					pri := utils.IndexOf(newUpdate, rule)
 					newUpdate[pi] = rule
 					newUpdate[pri] = page
 				}
@@ -95,14 +84,4 @@ func fix(update []int, rules map[int][]int) []int {
 	}
 
 	return newUpdate
-}
-
-func indexOf(slice []int, value int) int {
-	for i, v := range slice {
-		if v == value {
-			return i
-		}
-	}
-
-	return -1
 }

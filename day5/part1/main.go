@@ -43,7 +43,7 @@ func isValid(update []int, rules map[int][]int) bool {
 	for i, page := range update {
 		for _, before := range update[:i] {
 			if _, ok := rules[page]; ok {
-				if contain(rules[page], before) {
+				if utils.Contain(rules[page], before) {
 					return false
 				}
 			}
@@ -55,14 +55,4 @@ func isValid(update []int, rules map[int][]int) bool {
 
 func getMiddle(update []int) int {
 	return int(math.Ceil(float64(len(update) / 2)))
-}
-
-func contain(update []int, value int) bool {
-	for _, v := range update {
-		if v == value {
-			return true
-		}
-	}
-
-	return false
 }
