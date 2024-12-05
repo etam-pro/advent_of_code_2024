@@ -41,14 +41,6 @@ func main() {
 
 func isValid(update []int, rules map[int][]int) bool {
 	for i, page := range update {
-		for _, next := range update[i+1:] {
-			if _, ok := rules[page]; ok {
-				if !contain(rules[page], next) {
-					return false
-				}
-			}
-		}
-
 		for _, before := range update[:i] {
 			if _, ok := rules[page]; ok {
 				if contain(rules[page], before) {
