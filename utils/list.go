@@ -15,6 +15,12 @@ func Contain(slice []int, value int) bool {
 	return false
 }
 
+func DeepCopy(slice []int) []int {
+	newSlice := make([]int, len(slice))
+	copy(newSlice, slice)
+	return newSlice
+}
+
 func ContainString(slice []string, value string) bool {
 	for _, v := range slice {
 		if v == value {
